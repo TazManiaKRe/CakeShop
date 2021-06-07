@@ -124,7 +124,7 @@ namespace CakeShop.Controllers
                     _context.Add(user);
                     await _context.SaveChangesAsync();
 
-                    var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.PassWord == user.PassWord);
+                    var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
 
                     Signin(u);
 
