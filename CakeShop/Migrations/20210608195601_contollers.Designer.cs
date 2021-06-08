@@ -4,14 +4,16 @@ using CakeShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CakeShop.Migrations
 {
     [DbContext(typeof(CakeShopContext))]
-    partial class CakeShopContextModelSnapshot : ModelSnapshot
+    [Migration("20210608195601_contollers")]
+    partial class contollers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
