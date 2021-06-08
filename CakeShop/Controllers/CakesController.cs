@@ -140,6 +140,16 @@ namespace CakeShop.Controllers
 
             return View(cake);
         }
+        public async Task<IActionResult> Search(string queryTitle, string queryBody)
+        {
+            var q = from a in _context.Cake.Include(a => a.Category)
+                    where (a.Title.Contains(queryTitle) && a.Body.Contains(queryBody))
+                    orderby a.Title descending
+                    select a;
+
+            var CakeShophContext = _context.Cake.Include(a => a.Category).Where(a => (a.Title.Contains(queryTitle) || queryTitle == null) && (a.Body.Contains(queryBody) || queryBody == null));
+            return View("Index", await CakeShophContext.ToListAsync());
+        }
 
         // POST: Cakes/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -157,4 +167,5 @@ namespace CakeShop.Controllers
             return _context.Cake.Any(e => e.Id == id);
         }
     }
+
 }
