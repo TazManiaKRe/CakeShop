@@ -15,5 +15,13 @@ namespace CakeShop.Data
         }
 
         public DbSet<CakeShop.Models.User> User { get; set; }
+
+        public DbSet<CakeShop.Models.Cake> Cake { get; set; }
+
+        public DbSet<CakeShop.Models.Category> Category { get; set; }
+
+        public DbSet<CakeShop.Models.ImageCake> ImageCake { get; set; }
+
+        public DbSet<CakeShop.Models.Ingredients> Ingredients { get; set; }
     }
 }
