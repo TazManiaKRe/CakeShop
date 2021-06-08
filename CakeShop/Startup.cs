@@ -19,6 +19,8 @@ namespace CakeShop
         {
             Configuration = configuration;
         }
+        //Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
+        //  Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
         public IConfiguration Configuration { get; }
 
