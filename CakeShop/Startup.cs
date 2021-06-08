@@ -22,6 +22,7 @@ namespace CakeShop
         //Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
         //  Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
