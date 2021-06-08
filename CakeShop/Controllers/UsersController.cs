@@ -117,14 +117,14 @@ namespace CakeShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var q = _context.User.FirstOrDefault(u => u.Username == user.Username);
+                var q = _context.User.FirstOrDefault(u => u.UserName == user.UserName);
 
                 if (q == null)
                 {
                     _context.Add(user);
                     await _context.SaveChangesAsync();
 
-                    var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
+                    var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.PassWord == user.PassWord);
 
                     Signin(u);
 

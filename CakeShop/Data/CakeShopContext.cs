@@ -9,7 +9,7 @@ namespace CakeShop.Data
 {
     public class CakeShopContext : DbContext
     {
-        public CakeShopContext (DbContextOptions<CakeShopContext> options)
+        public CakeShopContext(DbContextOptions<CakeShopContext> options)
             : base(options)
         {
         }
