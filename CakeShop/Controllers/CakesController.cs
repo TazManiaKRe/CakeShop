@@ -48,7 +48,7 @@ namespace CakeShop.Controllers
         // GET: Cakes/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace CakeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,CategoryId")] Cake cake)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,CategoryId,Price")] Cake cake)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace CakeShop.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", cake.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", cake.CategoryId);
             return View(cake);
         }
 
@@ -82,7 +82,7 @@ namespace CakeShop.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", cake.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", cake.CategoryId);
             return View(cake);
         }
 
@@ -91,7 +91,7 @@ namespace CakeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,CategoryId")] Cake cake)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,CategoryId,Price")] Cake cake)
         {
             if (id != cake.Id)
             {
@@ -118,7 +118,7 @@ namespace CakeShop.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", cake.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", cake.CategoryId);
             return View(cake);
         }
 
@@ -140,16 +140,6 @@ namespace CakeShop.Controllers
 
             return View(cake);
         }
-        public async Task<IActionResult> Search(string queryTitle, string queryBody)
-        {
-            var q = from a in _context.Cake.Include(a => a.Category)
-                    where (a.Title.Contains(queryTitle) && a.Body.Contains(queryBody))
-                    orderby a.Title descending
-                    select a;
-
-            var CakeShophContext = _context.Cake.Include(a => a.Category).Where(a => (a.Title.Contains(queryTitle) || queryTitle == null) && (a.Body.Contains(queryBody) || queryBody == null));
-            return View("Index", await CakeShophContext.ToListAsync());
-        }
 
         // POST: Cakes/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -167,5 +157,4 @@ namespace CakeShop.Controllers
             return _context.Cake.Any(e => e.Id == id);
         }
     }
-
 }

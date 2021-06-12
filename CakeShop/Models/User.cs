@@ -28,7 +28,30 @@ namespace CakeShop.Models
         [DataType(DataType.Password)]
         public string PassWord { get; set; }
 
+        //שם פרטי שם משפחה
+        //כתובת
+        //מייל
+        //תאריך לידה
+
         public UserType Type { get; set; } = UserType.Guest;
+
+        //ask about first name, last name.. etc..
+        /*
+        [Range(1, 20)]
+        [Required(ErrorMessage = "You don't have first name?")]
+        public string Firstname { get; set; }
+
+        [Range(1, 20)]
+        [Required(ErrorMessage = "You don't have first name?")]
+        public string Lastname { get; set; }
+
+        
+        public string  Address { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        public int Phone { get; set; }
+        */
+       //we have to update it!
 
     }
 }
