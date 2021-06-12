@@ -8,14 +8,22 @@ namespace CakeShop.Models
 {
     public class Category
     {
+        //one to many
+        //every category have many cakes
+
+
+        //Id
         public int Id { get; set; }
          
 
-        //have to change
+        //Category name - need to fix
         [Required (ErrorMessage ="Must have category type!")]
         [Range(2,100)]
         public string Name { get; set; }
 
+
+        //List of cakes
+        //for every category there is a list of cakes
         public List<Cake> Cakes { get; set; }
 
        
