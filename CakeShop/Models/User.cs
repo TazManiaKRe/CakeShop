@@ -28,10 +28,7 @@ namespace CakeShop.Models
         [DataType(DataType.Password)]
         public string PassWord { get; set; }
 
-        //שם פרטי שם משפחה
-        //כתובת
-        //מייל
-        //תאריך לידה
+       
 
         public UserType Type { get; set; } = UserType.Guest;
 

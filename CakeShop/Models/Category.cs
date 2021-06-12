@@ -9,7 +9,9 @@ namespace CakeShop.Models
     public class Category
     {
         public int Id { get; set; }
+         
 
+        //have to change
         [Required (ErrorMessage ="Must have category type!")]
         [Range(2,100)]
         public string Name { get; set; }
