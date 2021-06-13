@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CakeShop.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CakeShop
 {
@@ -32,7 +33,14 @@ namespace CakeShop
 
             services.AddDbContext<CakeShopContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CakeShopContext")));
-            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
+            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(15); 
+            }
+            );
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options => { options.LoginPath = "/Users/Login";
+                    options.AccessDeniedPath = "/Users/AccessDenied"; 
+                });
 
         }
 
@@ -55,6 +63,8 @@ namespace CakeShop
             app.UseRouting();
 
             app.UseSession();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

@@ -1,4 +1,5 @@
 ﻿using CakeShop.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -21,10 +22,16 @@ namespace CakeShop.Controllers
         public IActionResult Index()
         {
             return View();
+            
         }
 
         public IActionResult Privacy()
         {
+           
+            if (HttpContext.Session.GetString("username") == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
             return View();
         }
 
