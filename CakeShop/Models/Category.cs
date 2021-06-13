@@ -18,7 +18,7 @@ namespace CakeShop.Models
 
         //Category name - need to fix
         [Required (ErrorMessage ="Must have category type!")]
-        [Range(2,100)]
+        [MinLength(2), MaxLength(100)]
         public string Name { get; set; }
 
 

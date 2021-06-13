@@ -12,7 +12,7 @@ namespace CakeShop.Models
         public int Id { get; set; }
 
         //Title
-        [Range(3,50, ErrorMessage ="Cake Title beteween 3-50") ] //only for max title
+        [MinLength(3), MaxLength(50)]
         [Required (ErrorMessage ="You must have cake title")]
         public string Title { get; set; }
 
