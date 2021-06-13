@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CakeShop.Models
 {
 
-    public enum UserType { Guest, Buyer, Mod, Admin } //guest =1 and so on..
+    public enum UserType { Guest, Buyer, Mod, Admin } //guest =0 and so on..
     //crating users for the cake shop
     public class User
     {
@@ -16,10 +16,16 @@ namespace CakeShop.Models
 
         public int Id { get; set; }
 
-
+        /*SqlException: Invalid column name 'Address'.
+        Invalid column name 'Firstname'.
+        Invalid column name 'Lastname'.
+        Invalid column name 'Phone'.
+        */
+        //ask about this warrnings ^
 
 
         //ragex for username
+        //change Hehara
         [RegularExpression("^[A-Za-z0-9]+(?:[_-] [A-Za-z0-9]+)*$", ErrorMessage = "User name can be only Letters and numbers")]
         [Required]
         [MinLength(4), MaxLength(20)]
@@ -38,10 +44,12 @@ namespace CakeShop.Models
 
         //ask about first name, last name.. etc..
 
+        //change
         [MinLength(2), MaxLength(20)]
         [Required(ErrorMessage = "You don't have first name?")]
         public string Firstname { get; set; }
 
+        //change
         [MinLength(2), MaxLength(20)]
         [Required(ErrorMessage = "You don't have last name?")]
         public string Lastname { get; set; }

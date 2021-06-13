@@ -34,6 +34,8 @@ namespace CakeShop.Controllers
             return RedirectToAction("Login");
         }
 
+       
+
 
         //LogIn Option
         public IActionResult Login()
@@ -49,12 +51,20 @@ namespace CakeShop.Controllers
         }
 
 
+        public async Task<IActionResult> EditUsers(User user)
+        {
+            UserType temp = user.Type;
+            int x = (int)temp;
+            if (x != 3)
+                return RedirectToAction(nameof(AccessDenied), "Users"); //if you dont allowed
 
+            return View(User);
+        }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+       // POST: Users/Create
+       // To protect from overposting attacks, enable the specific properties you want to bind to.
+       // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id,UserName,PassWord")] User user)
         {
