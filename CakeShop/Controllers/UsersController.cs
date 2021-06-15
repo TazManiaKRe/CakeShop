@@ -53,10 +53,7 @@ namespace CakeShop.Controllers
 
         public async Task<IActionResult> EditUsers(User user)
         {
-            UserType temp = user.Type;
-            int x = (int)temp;
-            if (x != 3)
-                return RedirectToAction(nameof(AccessDenied), "Users"); //if you dont allowed
+            
 
             return View(User);
         }
@@ -64,21 +61,18 @@ namespace CakeShop.Controllers
        // POST: Users/Create
        // To protect from overposting attacks, enable the specific properties you want to bind to.
        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-       [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id,UserName,PassWord")] User user)
+        public async Task<IActionResult> Login([Bind("Id,Username,Password")] User user)
         {
             if (ModelState.IsValid)
             {
                 var q = from u in _context.User
-                        where u.Username == user.Username && u.Username == user.Username
+                        where u.Username == user.Username && u.Password == user.Password
                         select u;
-
-                // var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
-
                 if (q.Count() > 0)
                 {
-                    //HttpContext.Session.SetString("username", q.First().Username);
+                    
 
                     Signin(q.First());
 
@@ -86,7 +80,7 @@ namespace CakeShop.Controllers
                 }
                 else
                 {
-                    ViewData["Error"] = "Username and/or password are incorrect.";
+                    ViewData["Error"] = "Error...";
                 }
             }
             return View(user);
@@ -114,6 +108,8 @@ namespace CakeShop.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
         }
+
+
         //continue from here...
 
         // GET: Users/Register
@@ -122,8 +118,9 @@ namespace CakeShop.Controllers
             return View();
         }
 
-
-        public async Task<IActionResult> Register([Bind("Id,Username,Password")] User user)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("Id,Username,Password,Firstname,Lastname,Address,Phone")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -149,3 +146,9 @@ namespace CakeShop.Controllers
         }
     }
 }
+
+/*
+UserType temp = user.Type;
+int x = (int)temp;
+if (x != 3)
+    return RedirectToAction(nameof(AccessDenied), "Users");*/

@@ -36,10 +36,10 @@ namespace CakeShop.Models
         //Ingredients
         public List<Ingredients> Ingredients { get; set; }
 
-        //Price can be null?
+        //Price 
         [Range(0,300)]
         public int Price { get; set; }
 
-        
+       
     }
 }

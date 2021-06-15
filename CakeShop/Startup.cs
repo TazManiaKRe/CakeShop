@@ -72,7 +72,7 @@ namespace CakeShop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Cakes}/{action=Index}/{id?}");
+                    pattern: "{controller=Users}/{action=Register}/{id?}");
             });
         }
     }
