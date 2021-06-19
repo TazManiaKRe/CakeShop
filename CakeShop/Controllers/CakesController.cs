@@ -69,6 +69,20 @@ namespace CakeShop.Controllers
             return View(cake);
         }
 
+        //search
+
+        public async Task<IActionResult> Search(string queryTitle, string queryBody)
+        {
+            var q = from a in _context.Cake.Include(a => a.Category)
+                    where (a.Title.Contains(queryTitle) || a.Body.Contains(queryBody))
+                    orderby a.Title descending
+                    select a; // new { Id = a.Id, Summary = a.Title + a.Body.Substring(0, 50) };
+
+            var CakeShopContext = _context.Cake.Include(a => a.Category).Where(a => (a.Title.Contains(queryTitle) || queryTitle == null) && (a.Body.Contains(queryBody) || queryBody == null));
+            return View("Index", await CakeShopContext.ToListAsync());
+        }
+
+
         // GET: Cakes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

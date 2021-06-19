@@ -58,21 +58,23 @@ namespace CakeShop.Controllers
             return View(User);
         }
 
-       // POST: Users/Create
-       // To protect from overposting attacks, enable the specific properties you want to bind to.
-       // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Users/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id,Username,Password")] User user)
         {
-            if (ModelState.IsValid)
-            {
+          
+
+          //  if (ModelState.IsValid)
+           // {
                 var q = from u in _context.User
                         where u.Username == user.Username && u.Password == user.Password
                         select u;
                 if (q.Count() > 0)
                 {
-                    
+
 
                     Signin(q.First());
 
@@ -82,10 +84,9 @@ namespace CakeShop.Controllers
                 {
                     ViewData["Error"] = "Error...";
                 }
-            }
+          //  }
             return View(user);
         }
-
 
         private async void Signin(User account)
         {
