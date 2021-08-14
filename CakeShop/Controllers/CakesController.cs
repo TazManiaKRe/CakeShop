@@ -210,6 +210,47 @@ namespace CakeShop.Controllers
         {
             return _context.Cake.Any(e => e.Id == id);
         }
+
+
+        public async Task<IActionResult> allCakes()
+        {
+            try
+            {
+                var cakes =
+                    from category in _context.Category
+                    join prod in _context.Cake on category.Id equals prod.CategoryId
+                    orderby category.Id
+                    select prod;
+
+                return View(await cakes.ToListAsync());
+            }
+            catch { return RedirectToAction("Index", "Home"); }
+        }
+
+        [HttpPost]
+        public IActionResult GroupByPrice()
+        {
+            try
+            {
+                var groups = from p in _context.Cake.ToList()
+                             group p by p.Price
+                into g
+                             orderby g.Key
+                             select g;
+
+                List<Cake> cakes = new List<Cake>();
+                foreach (var prod in groups)
+                {
+                    for (int i = 0; i < prod.ToList().Count; i++)
+                    {
+                        cakes.Add(prod.ElementAt(i));
+                    }
+                }
+
+                return View("AllCakes", cakes);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
+        }
     }
 }
 public class Stat

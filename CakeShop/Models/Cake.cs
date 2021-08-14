@@ -13,12 +13,12 @@ namespace CakeShop.Models
 
         //Title
         [MinLength(3), MaxLength(50)]
-        [Required (ErrorMessage ="You must have cake title")]
+        [Required(ErrorMessage = "You must have cake title")]
         public string Title { get; set; }
 
 
         //Body
-        [Required (ErrorMessage ="You must have cake body")]
+        [Required(ErrorMessage = "You must have cake body")]
         public string Body { get; set; }
 
         //Category id and category
@@ -52,7 +52,7 @@ namespace CakeShop.Models
 
 
         //Price 
-        [Range(0,300)]
+        [Range(0, 300)]
         public int Price { get; set; }
 
         public List<Cart> Carts { get; set; }

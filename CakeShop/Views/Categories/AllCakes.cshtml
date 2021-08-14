@@ -1,0 +1,46 @@
+﻿
+<h1>AllCakes</h1>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "All Cakes";
+}
+
+@model IEnumerable<CakeShop.Models.Cake>
+<h1 class="font-weight-lighter text-light">All Cakes Page</h1>
+
+<form asp-action="GroupByPrice" method="post">
+    <button asp-type="submit" class="btn-dark groupby" id="groupby">
+        Price from low to high
+    </button>
+</form>
+<div class="card-group">
+    <div class="row cardgrouprow">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm collumn">
+                <div class="card btn-outline-dark btn-width">
+                    <a class="asp-style-card" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">
+                        <clickable>
+                            @*<img src=@item.PhotosUrl1 class="card-img-top">*@
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Category</h5>
+                            </div>
+                        </clickable>
+                    </a>
+                    <div class="card-footer">
+                        <h6 class="text-muted">Price - @item.Price ₪</h6>
+                        <form asp-controller="Carts" asp-action="AddToCart" asp-route-id="@item.Id" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm card-background">
+                                Add To Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
