@@ -23,23 +23,38 @@ namespace CakeShop.Models
 
         //Category id and category
         //Have to change the view to see the category name
+        [Display(Name = "Category Id")]
+        [Required]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
 
 
         //Image
-        [DataType(DataType.ImageUrl)]
-        public ImageCake ImageCake { get; set; }
+        [Required]
+        [Display(Name = "Photo url")]
+        public string PhotosUrl1 { get; set; }
+        [Display(Name = "Photo url")]
+        [Required]
+        public string PhotosUrl2 { get; set; }
+        [Display(Name = "Photo url")]
+        [Required]
+        public string PhotosUrl3 { get; set; }
+        [Display(Name = "Photo url")]
+        [Required]
+        public string PhotosUrl4 { get; set; }
 
 
         //Ingredients
-        public List<Ingredients> Ingredients { get; set; }
+        //public List<Ingredients> Ingredients { get; set; }
+        //maybe not?
+
+
 
         //Price 
         [Range(0,300)]
         public int Price { get; set; }
 
-       
+        public List<Cart> Carts { get; set; }
     }
 }

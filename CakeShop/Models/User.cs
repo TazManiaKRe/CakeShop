@@ -60,7 +60,7 @@ namespace CakeShop.Models
 
         [DataType(DataType.PhoneNumber)]
         public int Phone { get; set; }
-        
 
+        public Cart Cart { get; set; } = new Cart();
     }
 }

@@ -20,12 +20,48 @@ namespace CakeShop.Controllers
         }
 
         // GET: Cakes
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var cakeShopContext = _context.Cake.Include(c => c.Category);
-            return View(await cakeShopContext.ToListAsync());
+            try
+            {
+                var CakeShopContext = _context.Cake.Include(p => p.Category);
+                return View(await CakeShopContext.ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
+        ////////////////////////////////////////////////////////////////
+        /// ////////////////////////////////////////////////////////////////
+        ///  ////////////////////////////////////////////////////////////////
+        ///   ////////////////////////////////////////////////////////////////
+        ///   
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SearchPtable(string query)
+        {
+            try
+            {
+                var CakeShopContext = _context.Cake.Include(p => p.Category);
+                return PartialView(await CakeShopContext.Where(p => p.Name.Contains(query)).ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
+        }
+
+
+        //Search Product
+        public async Task<IActionResult> Search(string productName, string price, string category)
+        {
+            try
+            {
+                int p = Int32.Parse(price);
+                var CakeShopContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName) && a.Category.Name.Equals(category) && a.Price <= p);
+                return View("searchlist", await CakeShopContext.ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
+        }
+
+        ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
         // GET: Cakes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -57,16 +93,20 @@ namespace CakeShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,CategoryId,Price")] Cake cake)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,Category,CategoryId,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,Price")] Cake cake)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(cake);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(cake);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", product.CategoryId);
+                return View(product);
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", cake.CategoryId);
-            return View(cake);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         //search
@@ -82,7 +122,7 @@ namespace CakeShop.Controllers
             return View("Index", await CakeShopContext.ToListAsync());
         }
 
-
+        //need to change
         // GET: Cakes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -170,5 +210,15 @@ namespace CakeShop.Controllers
         {
             return _context.Cake.Any(e => e.Id == id);
         }
+    }
+}
+public class Stat
+{
+    public string Key;
+    public int Values;
+    public Stat(string key, int values)
+    {
+        Key = key;
+        Values = values;
     }
 }

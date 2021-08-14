@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 using CakeShop.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -31,11 +31,11 @@ namespace CakeShop
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<CakeShopContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("CakeShopContext")));
-            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(15); 
-            }
-            );
+          //  services.AddDbContext<CakeShopContext>(options =>
+        //            options.UseSqlServer(Configuration.GetConnectionString("CakeShopContext")));
+        //    services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(15); 
+        //    }
+        //    );
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 options => { options.LoginPath = "/Users/Login";

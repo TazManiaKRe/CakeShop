@@ -10,7 +10,9 @@ namespace CakeShop.Models
     {
         //one to many
         //every category have many cakes
+        
 
+        //ok !!
 
         //Id
         public int Id { get; set; }
