@@ -149,5 +149,63 @@ namespace CakeShop.Controllers
         {
             return _context.Category.Any(e => e.Id == id);
         }
+
+
+        public async Task<IActionResult> Milky()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 1).ToListAsync());
+        }
+
+        public async Task<IActionResult> Parve()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 2).ToListAsync());
+        }
+
+
+        public async Task<IActionResult> NoEggs()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 3).ToListAsync());
+        }
+
+        public async Task<IActionResult> Special()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 4).ToListAsync());
+        }
+
+        public async Task<IActionResult> TheBestSelling()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 5).ToListAsync());
+        }
+
+        public async Task<IActionResult> Vegan()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 6).ToListAsync());
+        }
+        public async Task<IActionResult> WithoutBaking()
+        {
+
+            return View(await _context.Cake.Where(x => x.CategoryId == 7).ToListAsync());
+        }
+
+        public async Task<IActionResult> AllCakes()
+        {
+            try
+            {
+                var cakes =
+                    from category in _context.Category
+                    join prod in _context.Cake on category.Id equals prod.CategoryId
+                    orderby category.Id
+                    select prod;
+
+                return View(await cakes.ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
+        }
     }
 }
